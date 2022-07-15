@@ -71,7 +71,7 @@
         $(_contentTableList + " tbody").empty();
         $.each(array, function(i, data) {
             let position = data.position > 0 ? 'ps-4' : 'fw-bold';
-            let idx = data.target > 0 ? Math.round((data.value / data.target) * 100) : 100;
+            let idx = data.target > 0 ? Math.round((data.value / data.target) * 100) : 0;
             idx = idx + '%';
             view += '<tr class="hover-shadow-primary cursor-text" data-id="' + data.id + '">' +
                 '<td class="' + position + '" data-type="text" data-editing="false" data-column="operating" onclick="contentRowClick(this)">' + data.operating + '</td>' +
@@ -96,7 +96,7 @@
             }
         });
 
-        idx = target > 0 ? Math.round((value / target) * 100) : 100;
+        idx = target > 0 ? Math.round((value / target) * 100) : 0;
         idx = idx + '%';
 
         $(_contentTableList + ' tfoot tr th[data-column="target"]').html(currencyFormatter(target));

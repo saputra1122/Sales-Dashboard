@@ -115,7 +115,7 @@
                                     <td class="{{ $val->position > 0 ? 'ps-3' : 'fw-bold' }}" data-type="text" data-editing="false" data-column="operating" onclick="contentRowClick(this)">{!! $val->operating !!}</td>
                                     <td class="text-end" data-type="currency" data-editing="true" data-column="target" onclick="contentRowClick(this)">{{ App\Models\GlobalModel::currencyFormatter($val->target) }}</td>
                                     <td class="text-end" data-type="currency" data-editing="true" data-column="value" onclick="contentRowClick(this)">{{ App\Models\GlobalModel::currencyFormatter($val->value) }}</td>
-                                    <td class="text-center" data-type="percen" data-editing="false" onclick="contentRowClick(this)">{{ $val->target > 0 ? round(($val->value / $val->target) * 100) : 100 }}%</td>
+                                    <td class="text-center" data-type="percen" data-editing="false" onclick="contentRowClick(this)">{{ $val->target > 0 ? round(($val->value / $val->target) * 100) : 0 }}%</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -248,7 +248,7 @@
         let data = _content.find((x) => x.id == id);
         // Set position and idx
         let position = data.position > 0 ? 'ps-3' : 'fw-bold';
-        let idx = data.target > 0 ? Math.round((data.value / data.target) * 100) : 100;
+        let idx = data.target > 0 ? Math.round((data.value / data.target) * 100) : 0;
         idx = idx + '%';
         // Set view to variable
         let view = '<td class="' + position + '" data-type="text" data-editing="false" data-column="operating" onclick="contentRowClick(this)">' + data.operating + '</td>' +
@@ -274,7 +274,7 @@
 
         });
 
-        idx = target > 0 ? Math.round((value / target) * 100) : 100;
+        idx = target > 0 ? Math.round((value / target) * 100) : 0;
         idx = idx + '%';
 
         $(_contentTableList + ' tfoot tr th[data-column="target"]').html(currencyFormatter(target));
