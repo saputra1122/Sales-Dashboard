@@ -192,18 +192,8 @@ const setTypeToInput = (type) => {
     return type;
 }
 
-const currencyFormatter = (bilangan = 0, currency = '') => {
-    try {
-        var reverse = bilangan.toString().split('').reverse().join(''),
-            ribuan = reverse.match(/\d{1,3}/g);
-        ribuan = ribuan.join(',').split('').reverse().join('');
-
-        var format = currency + ' ' + ribuan;
-    } catch (error) {
-        format = 0;
-    }
-
-    return format;
+const currencyFormatter = (number) => {
+    return $.number(number, 2);
 }
 
 const dateFormatter = (date = new Date()) => {

@@ -183,6 +183,7 @@
     <!-- ............. -->
     <!-- Hiiden Custome -->
     <script src="{{ asset('assets/pus_dist/lib/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/pus_dist/lib/jquery-number-format/number-format.js') }}"></script>
     <!-- Toast and sweetalert -->
     <script src="{{ asset('assets/pus_dist/lib/jquery-toast-plugin/jquery.toast.min.js') }}"></script>
     <script src="{{ asset('assets/pus_dist/lib/sweetalert/sweetalert2/sweetalert2.min.js') }}"></script>

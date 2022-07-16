@@ -29,7 +29,7 @@ class GlobalModel extends Model
     protected function currencyFormatter($value)
     {
 
-        $value = number_format($value, 0, '.', ',');
+        $value = number_format($value, 2, '.', ',');
         return $value;
     }
 
