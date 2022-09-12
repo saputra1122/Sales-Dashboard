@@ -17,6 +17,9 @@
     <!-- Toast -->
     <link rel="stylesheet" href="{{ asset('assets/pus_dist/lib/jquery-toast-plugin/jquery.toast.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/pus_dist/lib/sweetalert/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="{{ asset('assets/pus_dist/lib/owl-carousel/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/pus_dist/lib/owl-carousel/css/owl.theme.default.min.css') }}">
     <!-- ....... -->
 </head>
 
@@ -28,11 +31,6 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3 d-flex d-md-none">
-                    <a href=".">
-                        <img src="{{ asset('assets/dist/img/logo/logo.svg') }}" width="110" height="32" alt="Tabler" class="navbar-brand-image">
-                    </a>
-                </h1>
                 <div class="navbar-nav flex-row order-md-last">
                     <div class="nav-item dropdown d-none d-md-flex me-3">
                         <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1" aria-label="Show notifications">
@@ -154,8 +152,8 @@
                         <div class="col-12 col-lg-auto mt-3 mt-lg-0">
                             <ul class="list-inline list-inline-dots mb-0">
                                 <li class="list-inline-item">
-                                    Copyright &copy; Pusproject
-                                    Created By @Ujun Junaedi
+                                    Copyright &copy; HKMU GROUP
+                                    Created By Jamaludin
                                 </li>
                                 <li class="list-inline-item">
                                     <a href="./changelog.html" class="link-secondary" rel="noopener">
@@ -187,6 +185,8 @@
     <!-- Toast and sweetalert -->
     <script src="{{ asset('assets/pus_dist/lib/jquery-toast-plugin/jquery.toast.min.js') }}"></script>
     <script src="{{ asset('assets/pus_dist/lib/sweetalert/sweetalert2/sweetalert2.min.js') }}"></script>
+    <!-- Owl Carousel -->
+    <script src="{{ asset('assets/pus_dist/lib/owl-carousel/js/owl.carousel.min.js') }}"></script>
     <!-- Custome Js -->
     <script src="{{ asset('assets/pus_dist/js/script.js') }}"></script>
 

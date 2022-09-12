@@ -167,9 +167,11 @@ const setTypeDataToArray = (type, value) => {
     return value == NaN ? 0 : value;
 }
 
-const parseIntCus = (value) => {
-    value = value == '' ? 0 : Number(value.replace(/[^0-9.-]+/g, ""));
-    return value;
+const parseIntCus = (v) => {
+    if (!v) { return 0; }
+    v = v.split('.').join('');
+    v = v.split(',').join('.');
+    return Number(v);
 }
 
 const setTypeToInput = (type) => {
@@ -193,7 +195,29 @@ const setTypeToInput = (type) => {
 }
 
 const currencyFormatter = (number) => {
-    return $.number(number, 2);
+    return $.number(number, 2, ',', '.');
+}
+
+const count_percent = (partValue, fullValue) => {
+    let percen = 0;
+    if (fullValue > 0) {
+        percen = Math.round((partValue / fullValue) * 100);
+        percen = percen > 100 ? 100 : percen;
+    } else {
+        percen = 0;
+    }
+
+    percen += '%';
+
+    return percen;
+}
+
+const dateFormat = (date) => {
+    var newDate = new Date(date);
+    let month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'];
+    var finalDate = firstZero(newDate.getDate()) + '-' + month[newDate.getMonth()] + '-' + newDate.getFullYear();
+
+    return finalDate;
 }
 
 const dateFormatter = (date = new Date()) => {
@@ -201,6 +225,13 @@ const dateFormatter = (date = new Date()) => {
     date = firstZero(date.getDate()) + '-' + month[date.getMonth()] + '-' + date.getFullYear();
 
     return date;
+}
+
+const timeFormat = (time) => {
+    var newTime = new Date(time);
+    var finalTime = firstZero(newTime.getHours()) + ':' + firstZero(newTime.getMinutes()) + ':' + firstZero(newTime.getSeconds());
+
+    return finalTime;
 }
 
 const firstZero = (value) => {
@@ -300,4 +331,29 @@ const execute_logout = () => {
             close_swal(true, 'Failed logout app..', 'error');
         }
     });
+}
+
+function toggleFullScreen(elem) {
+    // ## The below if statement seems to work better ## if ((document.fullScreenElement && document.fullScreenElement !== null) || (document.msfullscreenElement && document.msfullscreenElement !== null) || (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+    if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
+        if (elem.requestFullScreen) {
+            elem.requestFullScreen();
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullScreen) {
+            elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+        } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
+        }
+    } else {
+        if (document.cancelFullScreen) {
+            document.cancelFullScreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitCancelFullScreen) {
+            document.webkitCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+    }
 }

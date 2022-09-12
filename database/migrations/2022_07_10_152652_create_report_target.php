@@ -19,6 +19,11 @@ class CreateReportTarget extends Migration
             $table->string('operating');
             $table->double('target')->nullable(true);
             $table->double('value')->nullable(true);
+            $table->integer('indicator')->nullable(true);
+            $table->double('target_ar')->nullable(true);
+            $table->double('value_ar')->nullable(true);
+            $table->integer('indicator_ar')->nullable(true);
+            $table->integer('disable');
             $table->integer('position');
             $table->timestamps();
         });

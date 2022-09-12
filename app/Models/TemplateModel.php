@@ -10,5 +10,5 @@ class TemplateModel extends Model
     use HasFactory;
 
     protected $table = 'template';
-    protected $fillable = ['operating', 'target', 'position'];
+    protected $fillable = ['operating', 'target', 'target_ar', 'disable', 'position'];
 }

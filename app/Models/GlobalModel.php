@@ -29,7 +29,7 @@ class GlobalModel extends Model
     protected function currencyFormatter($value)
     {
 
-        $value = number_format($value, 2, '.', ',');
+        $value = number_format($value, 2, ',', '.');
         return $value;
     }
 
@@ -85,6 +85,20 @@ class GlobalModel extends Model
         }
 
         return $result;
+    }
+
+    protected function count_percent($partValue, $fullValue)
+    {
+        if ($fullValue > 0) {
+            $percen = round(($partValue / $fullValue) * 100);
+            $percen = $percen > 100 ? 100 : $percen;
+        } else {
+            $percen = 0;
+        }
+
+        $percen .= '%';
+
+        return $percen;
     }
 
     protected function setSession($key, $value)

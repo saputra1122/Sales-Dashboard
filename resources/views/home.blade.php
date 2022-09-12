@@ -9,38 +9,50 @@
                         <table class="table-custom" id="content-table-list">
                             <thead class="">
                                 <tr>
-                                    <th rowspan="3">Operating Company</th>
-                                    <th colspan="3">Secondary</th>
+                                    <th colspan="7" class="text-end">Time Gone : {{ round((Carbon\Carbon::make($header->created_at)->format('d') / Carbon\Carbon::make(Carbon\Carbon::now()->endOfMonth()->toDateString())->format('d')) * 100) }}%</th>
                                 </tr>
                                 <tr>
-                                    <th rowspan="2" width="20%">Target</th>
-                                    <th>Actual</th>
-                                    <th rowspan="2" width="10%">IDX</th>
-                                </tr>
-                                <tr>
-                                    <th width="20%">Value</th>
+                                    <th>Operating Company</th>
+                                    <th width="10%">Target</th>
+                                    <th width="10%">Actual</th>
+                                    <th width="10%">IDX</th>
+                                    <th width="10%">Target AR</th>
+                                    <th width="10%">Actual AR Up To {{ Carbon\Carbon::make($header->created_at)->isoFormat('MMM YY') }}</th>
+                                    <th>IDX</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($content->result as $val)
-                                <tr class="hover-shadow-primary cursor-text" data-id="{{ $val->id }}">
-                                    <td class="{{ $val->position > 0 ? 'ps-3' : 'fw-bold' }}">{!! $val->operating !!}</td>
-                                    <td class="text-end">{{ App\Models\GlobalModel::currencyFormatter($val->target) }}</td>
-                                    <td class="text-end">{{ App\Models\GlobalModel::currencyFormatter($val->value) }}</td>
-                                    <td class="text-center">{{ $val->target > 0 ? round(($val->value / $val->target) * 100) : 100 }}%</td>
-                                </tr>
+                                <?php if ($val->position >= 0) : ?>
+                                    <?php if ($val->disable != 1) : ?>
+                                        <tr class="hover-shadow-primary cursor-text" data-id="{{ $val->id }}">
+                                            <td class="{{ $val->position > 0 ? 'ps-3' : 'fw-bold' }}">{!! $val->operating !!}</td>
+                                            <td class="text-end {{ $val->position == 0 ? 'fw-bold' : '' }}">{{ $val->target > 0 ? App\Models\GlobalModel::currencyFormatter($val->target) : '-' }}</td>
+                                            <td class="text-end {{ $val->position == 0 ? 'fw-bold' : '' }}">{{ $val->value > 0 ? App\Models\GlobalModel::currencyFormatter($val->value) : '-' }}</td>
+                                            <td class="text-center {{ $val->position == 0 ? 'fw-bold' : '' }}">{{ $val->target > 0 ? round(($val->value / $val->target) * 100) . '%' : '-' }}</td>
+                                            <td class="text-end {{ $val->position == 0 ? 'fw-bold' : '' }}">{{ $val->target_ar > 0 ? App\Models\GlobalModel::currencyFormatter($val->target_ar) : '-' }}</td>
+                                            <td class="text-end {{ $val->position == 0 ? 'fw-bold' : '' }}">{{ $val->value_ar > 0 ? App\Models\GlobalModel::currencyFormatter($val->value_ar) : '-' }}</td>
+                                            <td class="text-center {{ $val->position == 0 ? 'fw-bold' : '' }}">{{ $val->target_ar ?? 0 > 0 ? round(($val->value_ar / $val->target_ar) * 100) . '%' : '-' }}</td>
+                                        </tr>
+                                    <?php else : ?>
+                                        <tr class="hover-shadow-primary cursor-text" data-id="{{ $val->id }}">
+                                            <td class="{{ $val->position > 0 ? 'ps-4' : 'fw-bold' }}" colspan="7">{!! $val->operating !!}</td>
+                                        </tr>
+                                    <?php endif ?>
+                                <?php endif ?>
+                                <?php if ($val->position < 0) : ?>
+                                    <tr class="hover-shadow-primary cursor-text bg-dark-lt" data-id="{{ $val->id }}">
+                                        <th class="text-start" data-type="text" data-column="operating">{!! $val->operating !!}</th>
+                                        <th class="text-end" data-type="currency" data-column="target">{{ App\Models\GlobalModel::currencyFormatter($val->target) }}</th>
+                                        <th class="text-end" data-type="currency" data-column="value">{{ App\Models\GlobalModel::currencyFormatter($val->value) }}</th>
+                                        <th class="text-center" data-type="percen" data-column="idx">{{ $val->target > 0 ? round(($val->value / $val->target) * 100) : 0 }}%</th>
+                                        <th class="text-end" data-type="currency" data-column="target_ar">{{ App\Models\GlobalModel::currencyFormatter($val->target_ar ?? 0) }}</th>
+                                        <th class="text-end" data-type="currency" data-column="value_ar">{{ App\Models\GlobalModel::currencyFormatter($val->value_ar ?? 0) }}</th>
+                                        <th class="text-center" data-type="percen" data-column="idx_ar">{{ $val->target_ar ?? 0 > 0 ? round(($val->value_ar / $val->target_ar) * 100) : 0 }}%</th>
+                                    </tr>
+                                <?php endif ?>
                                 @endforeach
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>
-                                        Total
-                                    </th>
-                                    <th class="text-end">{{ App\Models\GlobalModel::currencyFormatter($content->total->target) }}</th>
-                                    <th class="text-end">{{ App\Models\GlobalModel::currencyFormatter($content->total->value) }}</th>
-                                    <th class="text-center">{{ $content->total->idx }}%</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -91,7 +103,7 @@
                 </svg>
                 Open Live
             </span>
-            <span class="btn rounded-10" data-bs-toggle="tooltip" data-bs-placement="top" title="On-Going">
+            <span class="btn rounded-10" onclick="copyLink('<?= route('live', ['link' => 'share']) ?>')">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                     <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5"></path>
@@ -103,3 +115,12 @@
     </div>
 </div>
 @endsection
+@push('script')
+<script>
+    function copyLink(copyText) {
+        /* Copy the text inside the text field */
+        navigator.clipboard.writeText(copyText);
+        notif('Copied');
+    }
+</script>
+@endpush

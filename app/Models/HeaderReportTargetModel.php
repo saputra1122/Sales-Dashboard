@@ -10,5 +10,5 @@ class HeaderReportTargetModel extends Model
     use HasFactory;
 
     protected $table = 'header_report_target';
-    protected $fillable = ['title', 'live'];
+    protected $fillable = ['dashboard_id', 'title', 'live'];
 }

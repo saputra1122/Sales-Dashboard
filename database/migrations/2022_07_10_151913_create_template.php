@@ -17,6 +17,8 @@ class CreateTemplate extends Migration
             $table->id();
             $table->string('operating');
             $table->double('target');
+            $table->double('target_ar');
+            $table->integer('disable');
             $table->integer('position');
             $table->timestamps();
         });

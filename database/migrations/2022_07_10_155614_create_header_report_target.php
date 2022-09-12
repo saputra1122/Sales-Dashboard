@@ -15,6 +15,7 @@ class CreateHeaderReportTarget extends Migration
     {
         Schema::create('header_report_target', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('dashboard_id');
             $table->string('title')->nullable(true);
             $table->string('live');
             $table->timestamps();

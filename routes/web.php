@@ -32,3 +32,5 @@ Route::post('/header_report_target/create', [App\Http\Controllers\HeaderReportTa
 Route::post('/header_report_target/live', [App\Http\Controllers\HeaderReportTarget\HeaderReportTargetController::class, 'live'])->name('header_report_target.live');
 // Report Target
 Route::post('/report_target/create', [App\Http\Controllers\HeaderReportTarget\ReportTargetController::class, 'create'])->name('report_target.create');
+// Report Target 2
+Route::post('/report_target/create2', [App\Http\Controllers\HeaderReportTarget\ReportTargetController::class, 'create2'])->name('report_target.create2');
