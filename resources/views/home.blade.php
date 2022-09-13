@@ -12,7 +12,7 @@
                                     <th colspan="7" class="text-end">Time Gone : {{ round((Carbon\Carbon::make($header->created_at)->format('d') / Carbon\Carbon::make(Carbon\Carbon::now()->endOfMonth()->toDateString())->format('d')) * 100) }}%</th>
                                 </tr>
                                 <tr>
-                                    <th>Operating Company</th>
+                                    <th>Operating Companys</th>
                                     <th width="10%">Target</th>
                                     <th width="10%">Actual</th>
                                     <th width="10%">IDX</th>
